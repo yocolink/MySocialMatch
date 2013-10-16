@@ -4,9 +4,6 @@
 	$id = $_POST['id'];
 	$birthdate = $_POST['birthdate'];
 	
-	//$id = 1234567890;
-	//$birthdate = "1990/10/10";
-	
 	// Vérifier si l'id de l'user apparaît dans la table user
 	$query = "SELECT COUNT(*) FROM users WHERE id_user=$id";
 	$exec = mysqli_query($connect,$query) or die("Erreur SQL : " . mysqli_error($connect));
