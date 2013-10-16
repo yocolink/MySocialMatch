@@ -29,6 +29,7 @@
     padding-top: 25px;
     height: 105px;
     font-size: 70px;
+    z-index: 150;
 }
 #content{
     position: relative;
@@ -62,11 +63,18 @@
     height: 80px;
 }
 
+#content .result .menu a{
+    display: block;
+    width: 60px;
+    height: 60px;
+}
+
 #content .result .menu .picture-menu{
     float: left;
     width: 60px;
     height: 60px;
     margin: 5px 10px;
+    cursor: pointer;
 }
 
 #content .result .menu .picture-menu img{
@@ -74,7 +82,7 @@
     height: 60px;
 }
 
-#content .result .me, #content .result .others{
+#content .result .me, #content .result .other{
     width: 50%;
     height: 235px;
     float: left;
@@ -111,11 +119,16 @@
     cursor: pointer;
 }
 
+#details .text-chine{
+    display: none;
+}
+
 #details{
     display: none;
     position: absolute;
     top: 0;
-    width: 100%;
+    left: 213px;
+    width: 375px;
     height: 100%;
     background-color: #FFFFFF;
     z-index: 200;
@@ -128,13 +141,28 @@
     width: 30px;
     height: 30px;
     background: url(../Images/button/exit.gif);
+    cursor: pointer;
 }
 
+#details .next{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 145px;
+    height: 65px;
+    background: url(../Images/button/next.gif);
+    cursor: pointer;
+}
+
+#details .infos .head{
+    margin: 80px 0;
+}
 #details .infos .head *{
     display: inline-block;
 }
 
-.sign{
+#details .infos .sign{
     margin-top: 20px;
+    width: 100px;
     vertical-align: top;
 }
