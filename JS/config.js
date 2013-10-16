@@ -32,114 +32,114 @@ var tempDate;
 
 //European affinities lists
 var euro5Stars = [
-    ["Bélier", "Gémeaux"], ["Bélier", "Sagittaire"],
-    ["Taureau","Taureau"], ["Taureau", "Cancer"], ["Taureau","Vierge"], ["Taureau","Capricorne"],
-    ["Gémeaux", "Gémeaux"], ["Gémeaux","Lion"], ["Gémeaux","Balance"], ["Gémeaux","Verseau"],
-    ["Cancer","Cancer"], ["Cancer","Scorpion"], ["Cancer","Poissons"],
-    ["Lion","Lion"], ["Lion","Sagittaire"],
-    ["Vierge","Vierge"], ["Vierge","Capricorne"],
-    ["Scorpion","Scorpion"], ["Scorpion","Capricorne"], ["Scorpion","Poissons"],
-    ["Sagittaire","Sagittaire"], ["Sagittaire","Verseau"],
-    ["Capricorne","Capricorne"],
-    ["Verseau","Verseau"]
+    ["Bélier", "Gémeaux", 1], ["Bélier", "Sagittaire", 2],
+    ["Taureau","Taureau", 3], ["Taureau", "Cancer", 4], ["Taureau","Vierge", 5], ["Taureau","Capricorne", 6],
+    ["Gémeaux", "Gémeaux", 7], ["Gémeaux","Lion", 8], ["Gémeaux","Balance", 9], ["Gémeaux","Verseau", 10],
+    ["Cancer","Cancer", 11], ["Cancer","Scorpion", 12], ["Cancer","Poissons", 13],
+    ["Lion","Lion", 14], ["Lion","Sagittaire", 15],
+    ["Vierge","Vierge", 16], ["Vierge","Capricorne", 17],
+    ["Scorpion","Scorpion", 18], ["Scorpion","Capricorne", 19], ["Scorpion","Poissons", 20],
+    ["Sagittaire","Sagittaire", 21], ["Sagittaire","Verseau", 22],
+    ["Capricorne","Capricorne", 23],
+    ["Verseau","Verseau", 24]
     ];
 var euro4Stars = [
-    ["Bélier", "Lion"],
-    ["Taureau", "Scorpion"], ["Taureau", "Poissons"],
-    ["Gémeaux","Vierge"], ["Gémeaux","Sagittaire"],
-    ["Cancer","Capricorne"],
-    ["Lion","Vierge"],
-    ["Balance","Balance"],
-    ["Poissons","Poissons"]
+    ["Bélier", "Lion", 25],
+    ["Taureau", "Scorpion", 26], ["Taureau", "Poissons", 27],
+    ["Gémeaux","Vierge", 28], ["Gémeaux","Sagittaire", 29],
+    ["Cancer", "Lion", 30], ["Cancer","Capricorne", 31],
+    ["Lion","Vierge", 32],
+    ["Balance","Balance", 33],
+    ["Poissons","Poissons", 34]
 ];
 var euro3Stars = [
-    ["Bélier", "Balance"], ["Bélier", "Verseau"], ["Bélier", "Poissons"],
-    ["Taureau", "Gémeaux"], ["Taureau", "Lion"],
-    ["Gémeaux", "Scorpion"], ["Gémeaux", "Capricorne"], ["Gémeaux", "Poissons"],
-    ["Cancer", "Vierge"],
-    ["Lion", "Scorpion"], ["Lion", "Capricorne"],
-    ["Vierge", "Scorpion"],
-    ["Balance", "Sagittaire"], ["Balance", "Verseau"],
-    ["Scorpion", "Sagittaire"],
-    ["Verseau", "Poissons"]
+    ["Bélier", "Balance", 35], ["Bélier", "Verseau", 36], ["Bélier", "Poissons", 37],
+    ["Taureau", "Gémeaux", 38], ["Taureau", "Lion", 39],
+    ["Gémeaux", "Scorpion", 40], ["Gémeaux", "Capricorne", 41], ["Gémeaux", "Poissons", 42],
+    ["Cancer", "Vierge", 43],
+    ["Lion", "Scorpion", 44], ["Lion", "Capricorne", 45],
+    ["Vierge", "Scorpion", 46],
+    ["Balance", "Sagittaire", 47], ["Balance", "Verseau", 48],
+    ["Scorpion", "Sagittaire", 49],
+    ["Verseau", "Poissons", 50]
 ];
 var euro2Stars = [
-    ["Bélier", "Bélier"], ["Bélier", "Cancer"],
-    ["Taureau", "Balance"], ["Taureau", "Verseau"],
-    ["Gémeaux", "Cancer"],
-    ["Cancer", "Balance"], ["Cancer", "Verseau"],
-    ["Lion", "Balance"], ["Lion", "Poissons"],
-    ["Vierge", "Sagittaire"], ["Vierge", "Verseaux"],
-    ["Balance", "Capricorne"], ["Balance", "Poissons"],
-    ["Sagittaire", "Poissons"]
+    ["Bélier", "Bélier", 51], ["Bélier", "Cancer", 52],
+    ["Taureau", "Balance", 53], ["Taureau", "Verseau", 54],
+    ["Gémeaux", "Cancer", 55],
+    ["Cancer", "Balance", 56], ["Cancer", "Verseau", 57],
+    ["Lion", "Balance", 58], ["Lion", "Poissons", 59],
+    ["Vierge", "Sagittaire", 60], ["Vierge", "Verseaux", 61],
+    ["Balance", "Capricorne", 62], ["Balance", "Poissons", 63],
+    ["Sagittaire", "Poissons", 64]
 ];
 var euro1Star = [
-    ["Bélier", "Taureau"], ["Bélier", "Vierge"], ["Bélier", "Scorpion"], ["Bélier", "Capricorne"],
-    ["Taureau", "Sagittaire"],
-    ["Cancer", "Sagittaire"],
-    ["Lion", "Verseau"],
-    ["Vierge", "Balance"], ["Vierge", "Poissons"],
-    ["Balance", "Scorpion"],
-    ["Scorpion", "Verseau"],
-    ["Sagittaire", "Capricorne"],
-    ["Capricorne", "Verseau"], ["Capricorne", "Poissons"]
+    ["Bélier", "Taureau", 65], ["Bélier", "Vierge", 66], ["Bélier", "Scorpion", 67], ["Bélier", "Capricorne", 68],
+    ["Taureau", "Sagittaire", 69],
+    ["Cancer", "Sagittaire", 70],
+    ["Lion", "Verseau", 71],
+    ["Vierge", "Balance", 72], ["Vierge", "Poissons", 73],
+    ["Balance", "Scorpion", 74],
+    ["Scorpion", "Verseau", 75],
+    ["Sagittaire", "Capricorne", 76],
+    ["Capricorne", "Verseau", 77], ["Capricorne", "Poissons", 78]
 ];
 
 //Chinese affinities lists
 var chinese5Stars = [
-    ["Rat", "Boeuf"], ["Rat", "Dragon"], ["Rat", "Singe"],
-    ["Boeuf", "Lapin"], ["Boeuf", "Coq"],
-    ["Tigre", "Dragon"], ["Tigre", "Cheval"], ["Tigre", "Chien"],
-    ["Lapin", "Serpent"], ["Lapin", "Chèvre"],
-    ["Dragon", "Serpent"], ["Dragon", "Singe"],
-    ["Serpent", "Coq"],
-    ["Cheval", "Chèvre"], ["Cheval", "Chien"],
-    ["Chèvre", "Cochon"],
-    ["Chien", "Cochon"]
+    ["Rat", "Boeuf", 79], ["Rat", "Dragon", 80], ["Rat", "Singe", 81],
+    ["Boeuf", "Lapin", 82], ["Boeuf", "Coq", 83],
+    ["Tigre", "Dragon", 84], ["Tigre", "Cheval", 85], ["Tigre", "Chien", 86],
+    ["Lapin", "Serpent", 87], ["Lapin", "Chèvre", 88], ["Lapin", "Cochon", 89],
+    ["Dragon", "Serpent", 90], ["Dragon", "Singe", 91],
+    ["Serpent", "Coq", 92],
+    ["Cheval", "Chèvre", 93], ["Cheval", "Chien", 94],
+    ["Chèvre", "Cochon", 95],
+    ["Chien", "Cochon", 96]
 ];
 var chinese4Stars = [
-    ["Rat", "Lapin"], ["Rat", "Serpent"], ["Rat", "Chien"],
-    ["Boeuf", "Serpent"],
-    ["Tigre", "Lapin"], ["Tigre", "Cochon"],
-    ["Lapin", "Chien"], ["Lapin", "Cochon"],
-    ["Dragon", "Cochon"],
-    ["Serpent", "Chèvre"],
-    ["Cheval", "Coq"],
-    ["Chèvre", "Chèvre"], ["Chèvre", "Singe"],
-    ["Singe", "Chien"], ["Singe", "Cochon"],
-    ["Coq", "Cochon"],
-    ["Chien", "Chien"]
+    ["Rat", "Lapin", 97], ["Rat", "Serpent", 98], ["Rat", "Chien", 99],
+    ["Boeuf", "Serpent", 100],
+    ["Tigre", "Lapin", 101], ["Tigre", "Cochon", 102],
+    ["Lapin", "Chien", 103], ["Lapin", "Cochon", 104],
+    ["Dragon", "Cochon", 105],
+    ["Serpent", "Chèvre", 106],
+    ["Cheval", "Coq", 107],
+    ["Chèvre", "Chèvre", 108], ["Chèvre", "Singe", 109],
+    ["Singe", "Chien", 110], ["Singe", "Cochon", 111],
+    ["Coq", "Cochon", 112],
+    ["Chien", "Chien", 113]
 ];
 var chinese3Stars = [
-    ["Rat", "Rat"], ["Rat", "Tigre"],
-    ["Boeuf", "Boeuf"], ["Boeuf", "Singe"], ["Boeuf", "Cochon"],
-    ["Tigre", "Tigre"], ["Tigre", "Chèvre"],
-    ["Lapin", "Lapin"],
-    ["Dragon", "Cheval"], ["Dragon", "Coq"],
-    ["Serpent", "Serpent"], ["Serpent", "Chien"],
-    ["Cheval", "Cheval"], ["Cheval", "Cochon"],
-    ["Chèvre", "Chien"],
-    ["Singe", "Coq"]
+    ["Rat", "Rat", 114], ["Rat", "Tigre", 115],
+    ["Boeuf", "Boeuf", 116], ["Boeuf", "Singe", 117], ["Boeuf", "Cochon", 118],
+    ["Tigre", "Tigre", 119], ["Tigre", "Chèvre", 120],
+    ["Lapin", "Lapin", 121],
+    ["Dragon", "Cheval", 122], ["Dragon", "Coq", 123],
+    ["Serpent", "Serpent", 124], ["Serpent", "Chien", 125],
+    ["Cheval", "Cheval", 126], ["Cheval", "Cochon", 127],
+    ["Chèvre", "Chien", 128],
+    ["Singe", "Coq", 129]
 ];
 var chinese2Stars = [
-    ["Rat", "Chèvre"], ["Rat", "Coq"],
-    ["Boeuf", "Cheval"], ["Boeuf", "Chèvre"], ["Boeuf", "Chien"],
-    ["Tigre", "Serpent"], ["Tigre", "Coq"],
-    ["Lapin", "Dragon"], ["Lapin", "Singe"],
-    ["Dragon", "Dragon"], ["Dragon", "Chèvre"],
-    ["Serpent", "Cheval"],
-    ["Chèvre", "Coq"],
-    ["Singe", "Singe"],
-    ["Coq", "Chien"],
-    ["Cochon", "Cochon"]
+    ["Rat", "Chèvre", 130], ["Rat", "Coq", 131],
+    ["Boeuf", "Cheval", 132], ["Boeuf", "Chèvre", 133], ["Boeuf", "Chien", 134],
+    ["Tigre", "Serpent", 135], ["Tigre", "Coq", 136],
+    ["Lapin", "Dragon", 137], ["Lapin", "Singe", 138],
+    ["Dragon", "Dragon", 139], ["Dragon", "Chèvre", 140],
+    ["Serpent", "Cheval", 141],
+    ["Chèvre", "Coq", 142],
+    ["Singe", "Singe", 143],
+    ["Coq", "Chien", 144],
+    ["Cochon", "Cochon", 145]
 ];
 var chinese1Star = [
-    ["Rat", "Cheval"],
-    ["Boeuf", "Tigre"], ["Boeuf", "Dragon"],
-    ["Tigre", "Singe"], 
-    ["Lapin", "Cheval"], ["Lapin", "Coq"],
-    ["Dragon", "Chien"],
-    ["Serpent", "Singe"], ["Serpent", "Cochon"],
-    ["Cheval", "Singe"],
-    ["Coq", "Coq"]
+    ["Rat", "Cheval", 146],
+    ["Boeuf", "Tigre", 147], ["Boeuf", "Dragon", 148],
+    ["Tigre", "Singe", 149], 
+    ["Lapin", "Cheval", 150], ["Lapin", "Coq", 151],
+    ["Dragon", "Chien", 152],
+    ["Serpent", "Singe", 153], ["Serpent", "Cochon", 154],
+    ["Cheval", "Singe", 155],
+    ["Coq", "Coq", 156]
 ];
