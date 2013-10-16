@@ -91,30 +91,20 @@
                 </div>
                 <div class="result">
                     <div class="menu">
-                        <div id="1" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="2" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="3" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="4" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="5" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="6" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="7" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="8" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="9" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div id="10" class="picture-menu"><img src="" alt="Nom compliqué" /></div>
-                        <div class="clear"></div>
+                        
                     </div>
                     <div class="me">
-                        <p class="name">Mon nom compliqué</p>
+                        <p class="name"></p>
                         <img class="picture" src="" alt="facebook picture" />
-                        <p class="astro">Verseau <br />Serpent</p>
+                        <p class="astro"></p>
                     </div>
                     <div class="affinity">
-                        <p>50%</p>
+                        <p></p>
                     </div>
-                    <div class="others">
-                        <p class="name">Son nom compliqué</p>
+                    <div class="other">
+                        <p class="name"></p>
                         <img class="picture" src="" alt="facebook picture" />
-                        <p class="astro">Bélier <br />Dragon</p>
+                        <p class="astro"></p>
                     </div>
                     <div class="clear"></div>
                     <img class="show-details" src="Images/button/details.gif" alt="Button detail" />
@@ -123,14 +113,14 @@
                     <div class="exit"></div>
                     <div class="infos">
                         <div class="head">
-                            <img src="" alt="" width="80" height="80"/>
-                            <div class="sign"><p>Verseau<br />Bélier</p></div>
-                            <img src="" alt="" width="80" height="80"/>
+                            <img class="me" src="" alt="" width="80" height="80"/>
+                            <div class="sign"><p></p></div>
+                            <img class="other" src="" alt="" width="80" height="80"/>
                         </div>
-                        <p class="affinity">50%</p>
-                        <p>Le texte d'affinité entre les deux signes est ici.<br/>
+                        <p class="affinity"></p>
+                        <p class="text-europe">Le texte d'affinité entre les deux signes est ici.<br/>
                         Ca va ou ca ne va pas, l'important est l'interprétation, c'est mystique et c'est là qu'on comprend ce qui est vraiment important</p>
-                    </div>
+                        <p class="text-chine">chine chong</div>
                     <div class="next"></div>
                 </div>
 	    </div>
@@ -145,15 +135,43 @@
             $( document ).ready(function() {
                 $('#main-title').fadeIn('slow', function(){
                     $('#main-title').fadeOut('slow');
-                })
+                });
                 
-                //Show Details
+                // Show Details
                 $('.show-details').click(function(){
                     $('#box-shadow').fadeIn('slow');
                     $('#details').fadeIn('slow');
-                })
+                });
                 
-                //Facebook Login
+                // Hide Details
+                $('#details .exit').click(function(){
+                    $('#box-shadow').fadeOut('slow');
+                    $('#details').fadeOut('slow');
+                });
+                
+                // Show other kind of sign
+                $('#details .next').click(function(){
+                    if($('#details .text-europe').css('display') == 'block' ){
+                        $('#details .text-europe').fadeOut('slow', function(){
+                            $('.infos .sign p').html(user.chineseZodiac+ '<br />' +friendsToMatch[0].chineseZodiac);
+                            $('#details .text-chine').fadeIn('slow');
+                        });
+                        $('#details .infos .sign').fadeOut('slow', function(){
+                            $('#details .infos .sign').fadeIn('slow');
+                        });
+                    }
+                    else{
+                        $('#details .text-chine').fadeOut('slow', function(){
+                            $('.infos .sign p').html(user.europeanZodiac+ '<br />' +friendsToMatch[0].europeanZodiac);
+                            $('#details .text-europe').fadeIn('slow');
+                        });
+                        $('#details .infos .sign').fadeOut('slow', function(){
+                            $('#details .infos .sign').fadeIn('slow');
+                        });
+                    }
+                });
+                
+                // Facebook Login
                 $('img.connect').click(function(){
                     FB.login(function(response) {
                         if (response.authResponse) {
@@ -177,7 +195,12 @@
                         console.log(response);
                         tempDate = new Date(response.birthday);
                         user = {id: response.id, name: response.name, photoUrl: 'http://graph.facebook.com/' + response.id + '/picture', birthday: response.birthday, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate) };
+                        
+                        $('.me .name').text(user.name);
+                        $('.me .picture').attr('src', user.photoUrl);
+                        $('.me .astro').html(user.europeanZodiac+ '<br />'+ user.chineseZodiac);
                     });
+                    
                 }
 
                 function GetFriendsInformations(){
@@ -208,6 +231,23 @@
 
                         friendsToMatch.sort(compareByAffinity);
                         
+                        
+                        
+                        $('.other .name').text(friendsToMatch[0].name);
+                        $('.other .picture').attr('src', friendsToMatch[0].photoUrl);
+                        $('.other .astro').html(friendsToMatch[0].europeanZodiac+ '<br />'+ friendsToMatch[0].chineseZodiac);
+                        $('.affinity p').text(friendsToMatch[0].TotalAffinity);
+                        
+                        for(var i = 0; i < 10; i++){
+                            $('.menu').append('<div id="'+ friendsToMatch[i].id +'" class="picture-menu"><a href="#" title="'+ friendsToMatch[i].TotalAffinity +'"><img src="'+ friendsToMatch[i].photoUrl +'" alt="'+ friendsToMatch[i].name +'" /></a></div>');
+                        }
+                        $('.menu').append('<div class="clear"></div>');
+                        
+                        $('.infos img.me').attr('src', user.photoUrl);
+                        $('.infos .sign p').html(user.europeanZodiac+ '<br />' +friendsToMatch[0].europeanZodiac);
+                        $('.infos img.other').attr('src', friendsToMatch[0].photoUrl);
+                        $('.infos p.affinity').text(friendsToMatch[0].TotalAffinity);
+                        
                         $('.intro').fadeOut('slow',function(){
                             $('#content').css('width', '800px');
                             $('.result').fadeIn('slow');
@@ -216,45 +256,54 @@
                     });
                 }
 
-                // Check if the friend has a birthdate
+                // Vérifie si l'ami a une date de naissance
                 function HasBirthdate(friend){
                     if(friend.birthday != null && HasYearInDate(friend.birthday))
                         return true;
                     return false;
                 }
 
-                // Check if the date contains a year
+                // Vérifie si la date de naissance de l'ami a une année
                 function HasYearInDate(date){
                     if(date.length > 5)
                         return true;
                     return false;
                 }
 
-                //Check Affinity
+                // Recherche de l'affinité avec un ami
+                // En fonction du rang courant, si le signe du zodiac (européen d'abord puis chinois dans l'autre condition)
+                // de l'utilisateur et de l'ami est présent dans la liste d'affinité, on ajout le rang (1,2,3,4 ou 5)
+                // dans un nouvel attribut europeanAffinity/chineseAffinity 
                 function CompareAffinity(friend, europeanAffinityLevel, chineseAffinityLevel, AffinityRate){
-
-                    for(var j = 0; j < europeanAffinityLevel.length; j ++){
-                        if((europeanAffinityLevel[j][0] == user.europeanZodiac && europeanAffinityLevel[j][1] == friend.europeanZodiac)
-                        || (europeanAffinityLevel[j][1] == user.europeanZodiac && europeanAffinityLevel[j][0] == friend.europeanZodiac))
-                            friend.europeanAffinity = AffinityRate;
-
+                    if(friend.europeanAffinity == null){
+                        for(var j = 0; j < europeanAffinityLevel.length; j ++){
+                            if((europeanAffinityLevel[j][0] == user.europeanZodiac && europeanAffinityLevel[j][1] == friend.europeanZodiac)
+                            || (europeanAffinityLevel[j][1] == user.europeanZodiac && europeanAffinityLevel[j][0] == friend.europeanZodiac))
+                                friend.EuropeanAffinity = AffinityRate;
+                        }
                     }
-
-                    for(var j = 0; j < chineseAffinityLevel.length; j ++){
-                        if((chineseAffinityLevel[j][0] == user.chineseZodiac && chineseAffinityLevel[j][1] == friend.chineseZodiac)
-                        || (chineseAffinityLevel[j][1] == user.chineseZodiac && chineseAffinityLevel[j][0] == friend.chineseZodiac))
-                            friend.chineseAffinity = AffinityRate;
+                    
+                    if(friend.chineseAffinity == null){
+                       for(var j = 0; j < chineseAffinityLevel.length; j ++){
+                            if((chineseAffinityLevel[j][0] == user.chineseZodiac && chineseAffinityLevel[j][1] == friend.chineseZodiac)
+                            || (chineseAffinityLevel[j][1] == user.chineseZodiac && chineseAffinityLevel[j][0] == friend.chineseZodiac))
+                                friend.ChineseAffinity = AffinityRate;
+                        } 
                     }
                 }
-
+                
+                // Calcule de la note finale d'affinité représenté sous forme de pourcentage
+                // On effectue la moyenne des deux affinités sur 5 puis on la multiplie par 2 pour avoir un résultat sur 10
+                // puis on multiplie le tout par 10 pour obtenir un pourcentage.
                 function CalculateTotalAffinity(friend){
-                    friend.TotalAffinity = ((friend.europeanAffinity + friend.chineseAffinity) / 2) * 2 * 10 +'%';
+                    friend.TotalAffinity = ((friend.EuropeanAffinity + friend.ChineseAffinity) / 2) * 2 * 10 +'%';
                 }
-
+                
+                // Classement des résultats total d'affinité par ordre décroissant.
                 function compareByAffinity(a,b) {
-                    if ((a.europeanAffinity + a.chineseAffinity) > (b.europeanAffinity + b.chineseAffinity))
+                    if ((a.EuropeanAffinity + a.ChineseAffinity) > (b.EuropeanAffinity + b.ChineseAffinity))
                         return -1;
-                    if ((a.europeanAffinity + a.chineseAffinity) < (b.europeanAffinity + b.chineseAffinity))
+                    if ((a.EuropeanAffinity + a.ChineseAffinity) < (b.EuropeanAffinity + b.ChineseAffinity))
                         return 1;
                     return 0;
                 }
