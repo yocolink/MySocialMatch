@@ -12,7 +12,7 @@
 		//$id = $_POST['id'];
 		//$birthdate = $_POST['birthdate'];
 		
-		$id = 123456789550;
+		$id = 151532;
 		$birthdate = "1991-01-21";
 		
 		// Vérifier si l'id de l'user apparaît dans la table user

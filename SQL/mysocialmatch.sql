@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le : Mer 16 Octobre 2013 à 16:22
--- Version du serveur: 5.5.16
--- Version de PHP: 5.3.8
+-- Généré le: Jeu 17 Octobre 2013 à 09:13
+-- Version du serveur: 5.5.24-log
+-- Version de PHP: 5.4.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -202,7 +202,7 @@ INSERT INTO `description` (`id_description`, `description`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id_user` bigint(100) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `user_bday` date NOT NULL,
   `date_creation` datetime NOT NULL,
   `last_connection` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
