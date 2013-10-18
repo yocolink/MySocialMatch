@@ -82,6 +82,11 @@
     height: 60px;
 }
 
+#content .result .menu .picture-menu .hidden-astro,
+#content .result .menu .picture-menu .hidden-affinity{
+    display: none;
+}
+
 #content .result .me, #content .result .other{
     width: 50%;
     height: 235px;

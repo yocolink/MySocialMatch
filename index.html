@@ -15,7 +15,7 @@
 	<meta name="Rating" content="general">
 	<meta name="Language" content="fr">
 	<meta name="Viewport" content="initial-scale=1.0">
-
+        
 	<meta property="og:title" content="My Social Match - Who is your best match ?" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="http://mysocialmatch.meme42.fr" />
@@ -194,13 +194,21 @@
                     FB.api('/me/', {fields: 'name,id,location,birthday,gender'}, function (response) {
                         console.log(response);
                         tempDate = new Date(response.birthday);
-                        user = {id: response.id, name: response.name, photoUrl: 'http://graph.facebook.com/' + response.id + '/picture', birthday: response.birthday, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate) };
+                        user = {id: response.id, name: response.name, gender: response.gender, photoUrl: 'http://graph.facebook.com/' + response.id + '/picture', birthday: response.birthday, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate) };
                         
                         $('.me .name').text(user.name);
                         $('.me .picture').attr('src', user.photoUrl);
                         $('.me .astro').html(user.europeanZodiac+ '<br />'+ user.chineseZodiac);
+                        
+                        $.ajax({
+                            type: "POST",
+                            url: "db_add_user.php",
+                            data: { id: user.id, birthdate: user.birthday }
+                            })
+                            .done(function(msg) {
+                                console.log(msg);
+                        });
                     });
-                    
                 }
 
                 function GetFriendsInformations(){
@@ -232,14 +240,14 @@
                         friendsToMatch.sort(compareByAffinity);
                         
                         
-                        
+                        $('.other').attr('id', friendsToMatch[0].id);
                         $('.other .name').text(friendsToMatch[0].name);
                         $('.other .picture').attr('src', friendsToMatch[0].photoUrl);
                         $('.other .astro').html(friendsToMatch[0].europeanZodiac+ '<br />'+ friendsToMatch[0].chineseZodiac);
                         $('.affinity p').text(friendsToMatch[0].TotalAffinity);
                         
                         for(var i = 0; i < 10; i++){
-                            $('.menu').append('<div id="'+ friendsToMatch[i].id +'" class="picture-menu"><a href="#" title="'+ friendsToMatch[i].TotalAffinity +'"><img src="'+ friendsToMatch[i].photoUrl +'" alt="'+ friendsToMatch[i].name +'" /></a></div>');
+                            $('.menu').append('<div id="'+ friendsToMatch[i].id +'" class="picture-menu"><a href="#" title="'+ friendsToMatch[i].TotalAffinity +'"><img src="'+ friendsToMatch[i].photoUrl +'" alt="'+ friendsToMatch[i].name +'" /></a><p class="hidden-affinity">'+ friendsToMatch[i].TotalAffinity+ '</p><p class="hidden-astro">'+ friendsToMatch[i].europeanZodiac+ '<br />'+ friendsToMatch[0].chineseZodiac +'</p></div>');
                         }
                         $('.menu').append('<div class="clear"></div>');
                         
@@ -252,7 +260,26 @@
                             $('#content').css('width', '800px');
                             $('.result').fadeIn('slow');
                         });
-
+                        
+                        $('.picture-menu').on('click', function(){
+                            var $this = $(this);
+                            $('.other').fadeOut('slow', function(){
+                                $('.other').attr('id', $this.attr('id'));
+                                $('.other .name').text($this.children('a').children('img').attr('alt'));
+                                $('.other .picture').attr('src', 'http://graph.facebook.com/' + $this.attr('id') + '/picture');
+                                $('.other .astro').html($this.children('p.hidden-astro').html());
+                                $('.other').fadeIn('slow');
+                            })
+                            $('.result .affinity *').fadeOut('slow', function(){
+                                $('.result .affinity *').text($this.children('p.hidden-affinity').html());
+                                $('.result .affinity *').fadeIn('slow');
+                            })
+                            $('.infos p.affinity').fadeOut('slow', function(){
+                                $('.infos p.affinity').text($this.children('p.hidden-affinity').html());
+                                $('.infos p.affinity').fadeIn('slow');
+                            })
+                            return false;
+                        });
                     });
                 }
 
@@ -265,7 +292,14 @@
 
                 // Vérifie si la date de naissance de l'ami a une année
                 function HasYearInDate(date){
-                    if(date.length > 5)
+                    if(date.length > 5 && new Date(Date.parse(date)).getFullYear() > 1911)
+                        return true;
+                    return false;
+                }
+                
+                //Vérifie si l'ami est du sexe opposé
+                function IsOppositeGender(friendGender){
+                    if(friendGender != user.gender)
                         return true;
                     return false;
                 }
@@ -475,6 +509,9 @@
                         ||(new Date(2031,00,23) <= date &&  new Date(2032,01,10) >= date)	
                         ||(new Date(2043,01,10) <= date &&  new Date(2044,00,29) >= date)	
                     )
+                    {
+                        return 'Cochon';
+                    }
                     return null;
                 }
 
