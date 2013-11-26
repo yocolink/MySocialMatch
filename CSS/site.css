@@ -162,12 +162,119 @@
 #details .infos .head{
     margin: 80px 0;
 }
+
 #details .infos .head *{
     display: inline-block;
 }
 
-#details .infos .sign{
+#details .astro-sign{
     margin-top: 20px;
     width: 100px;
     vertical-align: top;
+}
+
+#global #details .astro-chine{
+    display: none;
+}
+
+#details .content{
+    position: relative;
+}
+#details .loader{
+    position: absolute;
+    display: none;
+    top: 70px;
+    left: 46%;
+}
+
+#FanPagePromo{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 213px;
+    width: 375px;
+    height: 100%;
+    background-color: #FFFFFF;
+    z-index: 200;
+}
+
+#FanPagePromo .exit{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    background: url(../Images/button/exit.gif);
+    cursor: pointer;
+}
+
+#completeView{
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#completeView .exit{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    background: url(../Images/button/exit.gif);
+    cursor: pointer;
+}
+
+#completeView .friend-list{
+    overflow-y: scroll;
+    width: 33%;
+    height: 100%;
+    float: left;
+}
+
+#completeView .friend-list a{
+    display: block;
+}
+
+#completeView .details{
+    width: 67%;
+    float: left;
+}
+
+#completeView .details .next{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 145px;
+    height: 65px;
+    background: url(../Images/button/next.gif);
+    cursor: pointer;
+}
+
+#completeView .details .infos .head{
+    margin: 80px 0;
+}
+
+#completeView .details .infos .head *{
+    display: inline-block;
+}
+
+#completeView .details .astro-sign{
+    margin-top: 20px;
+    width: 100px;
+    vertical-align: top;
+}
+
+#global #completeView .details .text-chine{
+    display: none;
+}
+
+#completeView .details .content{
+    position: relative;
+}
+#completeView .details .loader{
+    position: absolute;
+    display: none;
+    top: 70px;
+    left: 46%;
 }

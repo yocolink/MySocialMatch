@@ -1,12 +1,6 @@
 <?php
 	include "connexion.php";
 ?>
-<html>
-<head>
-	<title></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
 	<?php
 		// Exemple de tableau avec IDs
 		$missingFriendsId = array('1234567890','7894561230','1472583690','3692581470');
@@ -39,5 +33,3 @@
 		
 		mysqli_close($connect);
 	?>
-</body>
-</html>

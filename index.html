@@ -66,7 +66,7 @@
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) {return;}
 		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/all.js";
+		js.src = "//connect.facebook.net/fr_FR/all.js";
 		fjs.parentNode.insertBefore(js, fjs);
 	    }(document, 'script', 'facebook-jssdk'));
 	</script>
@@ -79,6 +79,7 @@
 	    </div>
 
 	    <div id="content">
+                <!-- Introduction --> 
                 <div class="intro">
                     <h2>Explication</h2>
                     <p>Bonjour dans le truc magique de révélation de l'affinité affinitative.<br />
@@ -89,6 +90,7 @@
                     sortir de facebook comme un bébé ultime et blablablabla boom...</p>
                     <img class="connect" src="Images/button/connect.gif" alt="Button connect" />
                 </div>
+                <!-- Ecran principal des résultats -->
                 <div class="result">
                     <div class="menu">
                         
@@ -108,20 +110,64 @@
                     </div>
                     <div class="clear"></div>
                     <img class="show-details" src="Images/button/details.gif" alt="Button detail" />
+                    <p class="see-all">Voir tous les amis</p>
                 </div>
+                <!-- Vue complète -->
+                <div id="completeView">
+                    <div class="exit"></div>
+                    <div class="friend-list">
+                        <input id="fb-friends-search" type="text" placeholder="Tapez le nom d'un ami"/><br />
+                    </div>
+                    <div class="details">
+                        <div class="infos">
+                            <div class="head">
+                                <img class="me" src="" alt="" width="80" height="80"/>
+                                <div class="astro-sign">
+                                    <p class="astro-chine"></p>
+                                    <p class="astro-europe"></p>
+                                </div>
+                                <img class="other" src="" alt="" width="80" height="80"/>
+                            </div>
+                            <div class="content">
+                                <p class="affinity"></p>
+                                <div class="texts">
+                                    <p class="text-europe"></p>
+                                    <p class="text-chine"></p>
+                                </div>
+                                <img class="loader" src="Images/loader.gif" alt="Loader" />
+                            </div>
+                            <div class="next"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!-- Vue détaillée -->
                 <div id="details">
                     <div class="exit"></div>
                     <div class="infos">
                         <div class="head">
                             <img class="me" src="" alt="" width="80" height="80"/>
-                            <div class="sign"><p></p></div>
+                            <div class="astro-sign">
+                                <p class="astro-chine"></p>
+                                <p class="astro-europe"></p>
+                            </div>
                             <img class="other" src="" alt="" width="80" height="80"/>
                         </div>
-                        <p class="affinity"></p>
-                        <p class="text-europe">Le texte d'affinité entre les deux signes est ici.<br/>
-                        Ca va ou ca ne va pas, l'important est l'interprétation, c'est mystique et c'est là qu'on comprend ce qui est vraiment important</p>
-                        <p class="text-chine">chine chong</div>
-                    <div class="next"></div>
+                        <div class="content">
+                            <p class="affinity"></p>
+                            <div class="texts">
+                                <p class="text-europe"></p>
+                                <p class="text-chine"></p>
+                            </div>
+                            <img class="loader" src="Images/loader.gif" alt="Loader" />
+                        </div>
+                        <div class="next"></div>
+                    </div>
+                </div>
+                <!-- Popup Facebook like -->
+                <div id="FanPagePromo">
+                    <div class="exit"></div>
+                    <div class="fb-like" data-href="https://www.facebook.com/pages/My-Social-Match/410899022365306" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
                 </div>
 	    </div>
 
@@ -130,421 +176,7 @@
             
 	</div>
         <script type="text/javascript" src="JS/config.js"></script>
-        <script type="text/javascript">
-            
-            $( document ).ready(function() {
-                $('#main-title').fadeIn('slow', function(){
-                    $('#main-title').fadeOut('slow');
-                });
-                
-                // Show Details
-                $('.show-details').click(function(){
-                    $('#box-shadow').fadeIn('slow');
-                    $('#details').fadeIn('slow');
-                });
-                
-                // Hide Details
-                $('#details .exit').click(function(){
-                    $('#box-shadow').fadeOut('slow');
-                    $('#details').fadeOut('slow');
-                });
-                
-                // Show other kind of sign
-                $('#details .next').click(function(){
-                    if($('#details .text-europe').css('display') == 'block' ){
-                        $('#details .text-europe').fadeOut('slow', function(){
-                            $('.infos .sign p').html(user.chineseZodiac+ '<br />' +friendsToMatch[0].chineseZodiac);
-                            $('#details .text-chine').fadeIn('slow');
-                        });
-                        $('#details .infos .sign').fadeOut('slow', function(){
-                            $('#details .infos .sign').fadeIn('slow');
-                        });
-                    }
-                    else{
-                        $('#details .text-chine').fadeOut('slow', function(){
-                            $('.infos .sign p').html(user.europeanZodiac+ '<br />' +friendsToMatch[0].europeanZodiac);
-                            $('#details .text-europe').fadeIn('slow');
-                        });
-                        $('#details .infos .sign').fadeOut('slow', function(){
-                            $('#details .infos .sign').fadeIn('slow');
-                        });
-                    }
-                });
-                
-                // Facebook Login
-                $('img.connect').click(function(){
-                    FB.login(function(response) {
-                        if (response.authResponse) {
-                            var access_token = FB.getAuthResponse()['accessToken'];
-                            console.log('Access Token = '+ access_token);
-                            GetMyInformations();
-                            GetFriendsInformations();
-                            
-                            
-                        }
-                        else {
-                            console.log('User cancelled login or did not fully authorize.');
-                        }
-                    },{scope: 'user_birthday, user_location, user_likes, friends_location, friends_birthday'});
-                })
-
-                function GetMyInformations(){
-
-                    // Récupération des données User
-                    FB.api('/me/', {fields: 'name,id,location,birthday,gender'}, function (response) {
-                        console.log(response);
-                        tempDate = new Date(response.birthday);
-                        user = {id: response.id, name: response.name, gender: response.gender, photoUrl: 'http://graph.facebook.com/' + response.id + '/picture', birthday: response.birthday, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate) };
-                        
-                        $('.me .name').text(user.name);
-                        $('.me .picture').attr('src', user.photoUrl);
-                        $('.me .astro').html(user.europeanZodiac+ '<br />'+ user.chineseZodiac);
-                        
-                        $.ajax({
-                            type: "POST",
-                            url: "db_add_user.php",
-                            data: { id: user.id, birthdate: user.birthday }
-                            })
-                            .done(function(msg) {
-                                console.log(msg);
-                        });
-                    });
-                }
-
-                function GetFriendsInformations(){
-
-                    // Récupération d'info d'ami
-                    FB.api('/me/friends', {fields: 'name,id,location,birthday,gender'}, function (response) {
-                        console.log(response);
-                        var data = response.data;
-                        for (var i = 0; i < data.length; i++) {
-                            if(HasBirthdate(data[i])){
-                                tempDate = new Date(data[i].birthday);
-                                friendsToMatch.push({id: data[i].id, name: data[i].name, photoUrl: 'http://graph.facebook.com/' + data[i].id + '/picture',birthday: tempDate, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate) });
-                            }
-                            else{
-                                missingFriends.push({id: data[i].id, name: data[i].name, birthday: data[i].birthday});
-                            }
-                        }
-
-                        for(var i = 0; i < friendsToMatch.length; i++){
-                            CompareAffinity(friendsToMatch[i], euro5Stars, chinese5Stars, 5);
-                            CompareAffinity(friendsToMatch[i], euro4Stars, chinese4Stars, 4);
-                            CompareAffinity(friendsToMatch[i], euro3Stars, chinese3Stars, 3);
-                            CompareAffinity(friendsToMatch[i], euro2Stars, chinese2Stars, 2);
-                            CompareAffinity(friendsToMatch[i], euro1Star, chinese1Star, 1);
-
-                            CalculateTotalAffinity(friendsToMatch[i]);
-                        }
-
-                        friendsToMatch.sort(compareByAffinity);
-                        
-                        
-                        $('.other').attr('id', friendsToMatch[0].id);
-                        $('.other .name').text(friendsToMatch[0].name);
-                        $('.other .picture').attr('src', friendsToMatch[0].photoUrl);
-                        $('.other .astro').html(friendsToMatch[0].europeanZodiac+ '<br />'+ friendsToMatch[0].chineseZodiac);
-                        $('.affinity p').text(friendsToMatch[0].TotalAffinity);
-                        
-                        for(var i = 0; i < 10; i++){
-                            $('.menu').append('<div id="'+ friendsToMatch[i].id +'" class="picture-menu"><a href="#" title="'+ friendsToMatch[i].TotalAffinity +'"><img src="'+ friendsToMatch[i].photoUrl +'" alt="'+ friendsToMatch[i].name +'" /></a><p class="hidden-affinity">'+ friendsToMatch[i].TotalAffinity+ '</p><p class="hidden-astro">'+ friendsToMatch[i].europeanZodiac+ '<br />'+ friendsToMatch[0].chineseZodiac +'</p></div>');
-                        }
-                        $('.menu').append('<div class="clear"></div>');
-                        
-                        $('.infos img.me').attr('src', user.photoUrl);
-                        $('.infos .sign p').html(user.europeanZodiac+ '<br />' +friendsToMatch[0].europeanZodiac);
-                        $('.infos img.other').attr('src', friendsToMatch[0].photoUrl);
-                        $('.infos p.affinity').text(friendsToMatch[0].TotalAffinity);
-                        
-                        $('.intro').fadeOut('slow',function(){
-                            $('#content').css('width', '800px');
-                            $('.result').fadeIn('slow');
-                        });
-                        
-                        $('.picture-menu').on('click', function(){
-                            var $this = $(this);
-                            $('.other').fadeOut('slow', function(){
-                                $('.other').attr('id', $this.attr('id'));
-                                $('.other .name').text($this.children('a').children('img').attr('alt'));
-                                $('.other .picture').attr('src', 'http://graph.facebook.com/' + $this.attr('id') + '/picture');
-                                $('.other .astro').html($this.children('p.hidden-astro').html());
-                                $('.other').fadeIn('slow');
-                            })
-                            $('.result .affinity *').fadeOut('slow', function(){
-                                $('.result .affinity *').text($this.children('p.hidden-affinity').html());
-                                $('.result .affinity *').fadeIn('slow');
-                            })
-                            $('.infos p.affinity').fadeOut('slow', function(){
-                                $('.infos p.affinity').text($this.children('p.hidden-affinity').html());
-                                $('.infos p.affinity').fadeIn('slow');
-                            })
-                            return false;
-                        });
-                    });
-                }
-
-                // Vérifie si l'ami a une date de naissance
-                function HasBirthdate(friend){
-                    if(friend.birthday != null && HasYearInDate(friend.birthday))
-                        return true;
-                    return false;
-                }
-
-                // Vérifie si la date de naissance de l'ami a une année
-                function HasYearInDate(date){
-                    if(date.length > 5 && new Date(Date.parse(date)).getFullYear() > 1911)
-                        return true;
-                    return false;
-                }
-                
-                //Vérifie si l'ami est du sexe opposé
-                function IsOppositeGender(friendGender){
-                    if(friendGender != user.gender)
-                        return true;
-                    return false;
-                }
-
-                // Recherche de l'affinité avec un ami
-                // En fonction du rang courant, si le signe du zodiac (européen d'abord puis chinois dans l'autre condition)
-                // de l'utilisateur et de l'ami est présent dans la liste d'affinité, on ajout le rang (1,2,3,4 ou 5)
-                // dans un nouvel attribut europeanAffinity/chineseAffinity 
-                function CompareAffinity(friend, europeanAffinityLevel, chineseAffinityLevel, AffinityRate){
-                    if(friend.europeanAffinity == null){
-                        for(var j = 0; j < europeanAffinityLevel.length; j ++){
-                            if((europeanAffinityLevel[j][0] == user.europeanZodiac && europeanAffinityLevel[j][1] == friend.europeanZodiac)
-                            || (europeanAffinityLevel[j][1] == user.europeanZodiac && europeanAffinityLevel[j][0] == friend.europeanZodiac))
-                                friend.EuropeanAffinity = AffinityRate;
-                        }
-                    }
-                    
-                    if(friend.chineseAffinity == null){
-                       for(var j = 0; j < chineseAffinityLevel.length; j ++){
-                            if((chineseAffinityLevel[j][0] == user.chineseZodiac && chineseAffinityLevel[j][1] == friend.chineseZodiac)
-                            || (chineseAffinityLevel[j][1] == user.chineseZodiac && chineseAffinityLevel[j][0] == friend.chineseZodiac))
-                                friend.ChineseAffinity = AffinityRate;
-                        } 
-                    }
-                }
-                
-                // Calcule de la note finale d'affinité représenté sous forme de pourcentage
-                // On effectue la moyenne des deux affinités sur 5 puis on la multiplie par 2 pour avoir un résultat sur 10
-                // puis on multiplie le tout par 10 pour obtenir un pourcentage.
-                function CalculateTotalAffinity(friend){
-                    friend.TotalAffinity = ((friend.EuropeanAffinity + friend.ChineseAffinity) / 2) * 2 * 10 +'%';
-                }
-                
-                // Classement des résultats total d'affinité par ordre décroissant.
-                function compareByAffinity(a,b) {
-                    if ((a.EuropeanAffinity + a.ChineseAffinity) > (b.EuropeanAffinity + b.ChineseAffinity))
-                        return -1;
-                    if ((a.EuropeanAffinity + a.ChineseAffinity) < (b.EuropeanAffinity + b.ChineseAffinity))
-                        return 1;
-                    return 0;
-                }
-
-                // Find Chinese sign
-                function findChineseZodiac(date){
-                    if((new Date(1924,01,05) <= date &&  new Date(1925,00,23) >= date) 
-                        ||(new Date(1936,00,24) <= date &&  new Date(1937,01,10) >= date)	
-                        ||(new Date(1948,01,10) <= date &&  new Date(1949,00,28) >= date)	
-                        ||(new Date(1960,00,28) <= date &&  new Date(1961,01,14) >= date)	
-                        ||(new Date(1972,01,15) <= date &&  new Date(1973,01,02) >= date)	
-                        ||(new Date(1984,01,02) <= date &&  new Date(1985,01,19) >= date)	
-                        ||(new Date(1996,01,19) <= date &&  new Date(1997,01,06) >= date)	
-                        ||(new Date(2008,01,07) <= date &&  new Date(2009,00,25) >= date)	
-                        ||(new Date(2020,00,25) <= date &&  new Date(2021,01,11) >= date)	
-                        ||(new Date(2032,01,11) <= date &&  new Date(2033,00,30) >= date)	
-                    )
-                    {
-                        return 'Rat';
-                    }
-                    else if((new Date(1925,00,24) <= date &&  new Date(1926,01,12) >= date) 
-                        ||(new Date(1937,01,11) <= date &&  new Date(1938,00,30) >= date)	
-                        ||(new Date(1949,00,29) <= date &&  new Date(1950,01,16) >= date)	
-                        ||(new Date(1961,01,15) <= date &&  new Date(1962,01,04) >= date)	
-                        ||(new Date(1973,01,03) <= date &&  new Date(1974,00,24) >= date)	
-                        ||(new Date(1985,01,20) <= date &&  new Date(1986,01,08) >= date)	
-                        ||(new Date(1997,01,07) <= date &&  new Date(1998,00,27) >= date)	
-                        ||(new Date(2009,00,26) <= date &&  new Date(2010,01,13) >= date)	
-                        ||(new Date(2021,01,12) <= date &&  new Date(2022,00,31) >= date)	
-                        ||(new Date(2033,00,31) <= date &&  new Date(2034,01,18) >= date)	
-                    )
-                    {
-                        return 'Boeuf';
-                    }
-                    else if((new Date(1926,01,13) <= date &&  new Date(1927,01,01) >= date) 
-                        ||(new Date(1938,00,31) <= date &&  new Date(1939,01,18) >= date)	
-                        ||(new Date(1950,01,17) <= date &&  new Date(1951,01,05) >= date)	
-                        ||(new Date(1962,01,05) <= date &&  new Date(1963,00,24) >= date)	
-                        ||(new Date(1974,00,23) <= date &&  new Date(1975,01,10) >= date)	
-                        ||(new Date(1986,01,09) <= date &&  new Date(1987,00,28) >= date)	
-                        ||(new Date(1998,00,27) <= date &&  new Date(1999,01,15) >= date)	
-                        ||(new Date(2010,01,14) <= date &&  new Date(2011,01,02) >= date)	
-                        ||(new Date(2022,01,01) <= date &&  new Date(2023,00,21) >= date)	
-                        ||(new Date(2034,01,19) <= date &&  new Date(2035,01,07) >= date)	
-                    )
-                    {
-                        return 'Tigre';
-                    }
-                    else if((new Date(1927,01,02) <= date &&  new Date(1928,00,21) >= date) 
-                        ||(new Date(1939,01,19) <= date &&  new Date(1940,01,07) >= date)	
-                        ||(new Date(1951,01,06) <= date &&  new Date(1952,00,26) >= date)	
-                        ||(new Date(1963,00,25) <= date &&  new Date(1964,01,12) >= date)	
-                        ||(new Date(1975,01,11) <= date &&  new Date(1976,00,30) >= date)	
-                        ||(new Date(1987,00,29) <= date &&  new Date(1988,01,16) >= date)	
-                        ||(new Date(1999,01,16) <= date &&  new Date(2000,01,04) >= date)	
-                        ||(new Date(2011,01,03) <= date &&  new Date(2012,00,22) >= date)	
-                        ||(new Date(2023,00,22) <= date &&  new Date(2024,01,09) >= date)	
-                        ||(new Date(2035,01,08) <= date &&  new Date(2036,00,27) >= date)	
-                    )
-                    {
-                        return 'Lapin';
-                    }
-                    else if((new Date(1928,00,22) <= date &&  new Date(1929,01,08) >= date) 
-                        ||(new Date(1940,01,08) <= date &&  new Date(1941,00,26) >= date)	
-                        ||(new Date(1952,00,27) <= date &&  new Date(1953,01,13) >= date)	
-                        ||(new Date(1964,01,13) <= date &&  new Date(1965,01,01) >= date)	
-                        ||(new Date(1976,00,31) <= date &&  new Date(1977,01,17) >= date)	
-                        ||(new Date(1988,01,17) <= date &&  new Date(1989,01,05) >= date)	
-                        ||(new Date(2000,01,05) <= date &&  new Date(2001,00,23) >= date)	
-                        ||(new Date(2012,00,23) <= date &&  new Date(2013,01,09) >= date)	
-                        ||(new Date(2024,01,10) <= date &&  new Date(2025,00,28) >= date)	
-                        ||(new Date(2036,00,28) <= date &&  new Date(2037,01,14) >= date)	
-                    )
-                    {
-                        return 'Dragon';
-                    }
-                    else if((new Date(1929,01,09) <= date &&  new Date(1930,00,28) >= date) 
-                        ||(new Date(1941,00,27) <= date &&  new Date(1942,02,14) >= date)	
-                        ||(new Date(1953,01,14) <= date &&  new Date(1954,01,02) >= date)	
-                        ||(new Date(1965,01,02) <= date &&  new Date(1966,00,20) >= date)	
-                        ||(new Date(1977,01,18) <= date &&  new Date(1978,01,06) >= date)	
-                        ||(new Date(1989,01,06) <= date &&  new Date(1990,00,26) >= date)	
-                        ||(new Date(2001,01,24) <= date &&  new Date(2002,01,11) >= date)	
-                        ||(new Date(2013,01,10) <= date &&  new Date(2014,00,30) >= date)	
-                        ||(new Date(2025,00,29) <= date &&  new Date(2026,01,16) >= date)	
-                        ||(new Date(2037,01,15) <= date &&  new Date(2038,01,03) >= date)	
-                    )
-                    {
-                        return 'Serpent';
-                    }
-                    else if((new Date(1930,00,29) <= date &&  new Date(1931,01,16) >= date) 
-                        ||(new Date(1942,01,15) <= date &&  new Date(1943,01,04) >= date)	
-                        ||(new Date(1954,01,03) <= date &&  new Date(1955,00,23) >= date)	
-                        ||(new Date(1966,00,21) <= date &&  new Date(1967,01,08) >= date)	
-                        ||(new Date(1978,01,07) <= date &&  new Date(1979,00,27) >= date)	
-                        ||(new Date(1990,00,27) <= date &&  new Date(1991,01,14) >= date)	
-                        ||(new Date(2002,01,12) <= date &&  new Date(2003,00,31) >= date)	
-                        ||(new Date(2014,00,31) <= date &&  new Date(2015,01,18) >= date)	
-                        ||(new Date(2026,00,17) <= date &&  new Date(2027,01,05) >= date)	
-                        ||(new Date(2038,01,04) <= date &&  new Date(2039,00,23) >= date)	
-                    )
-                    {
-                        return 'Cheval';
-                    }
-                    else if((new Date(1931,01,17) <= date &&  new Date(1932,01,05) >= date) 
-                        ||(new Date(1943,01,05) <= date &&  new Date(1944,00,24) >= date)	
-                        ||(new Date(1955,00,24) <= date &&  new Date(1956,01,11) >= date)	
-                        ||(new Date(1967,01,09) <= date &&  new Date(1968,00,29) >= date)	
-                        ||(new Date(1979,00,28) <= date &&  new Date(1980,01,15) >= date)	
-                        ||(new Date(1991,01,14) <= date &&  new Date(1992,01,03) >= date)	
-                        ||(new Date(2003,01,01) <= date &&  new Date(2004,00,21) >= date)	
-                        ||(new Date(2015,01,19) <= date &&  new Date(2016,01,07) >= date)	
-                        ||(new Date(2027,01,06) <= date &&  new Date(2028,00,25) >= date)	
-                        ||(new Date(2039,00,24) <= date &&  new Date(2040,01,11) >= date)	
-                    )
-                    {
-                        return 'Chèvre';
-                    }
-                    else if((new Date(1932,01,06) <= date &&  new Date(1933,00,24) >= date) 
-                        ||(new Date(1944,00,25) <= date &&  new Date(1945,01,12) >= date)	
-                        ||(new Date(1956,01,12) <= date &&  new Date(1957,00,30) >= date)	
-                        ||(new Date(1968,00,30) <= date &&  new Date(1969,01,16) >= date)	
-                        ||(new Date(1980,01,16) <= date &&  new Date(1981,01,04) >= date)	
-                        ||(new Date(1992,01,04) <= date &&  new Date(1993,00,22) >= date)	
-                        ||(new Date(2004,00,22) <= date &&  new Date(2005,01,08) >= date)	
-                        ||(new Date(2016,01,08) <= date &&  new Date(2017,00,27) >= date)	
-                        ||(new Date(2028,00,26) <= date &&  new Date(2029,01,12) >= date)	
-                        ||(new Date(2040,01,12) <= date &&  new Date(2041,00,31) >= date)	
-                    )
-                    {
-                        return 'Singe';
-                    }
-                    else if((new Date(1933,00,25) <= date &&  new Date(1934,01,13) >= date) 
-                        ||(new Date(1945,01,13) <= date &&  new Date(1946,01,01) >= date)	
-                        ||(new Date(1957,00,30) <= date &&  new Date(1958,01,17) >= date)	
-                        ||(new Date(1969,01,17) <= date &&  new Date(1970,01,05) >= date)	
-                        ||(new Date(1981,01,05) <= date &&  new Date(1982,00,24) >= date)	
-                        ||(new Date(1993,00,23) <= date &&  new Date(1994,01,09) >= date)	
-                        ||(new Date(2005,01,09) <= date &&  new Date(2006,00,28) >= date)	
-                        ||(new Date(2017,00,28) <= date &&  new Date(2018,01,15) >= date)	
-                        ||(new Date(2029,01,13) <= date &&  new Date(2030,01,02) >= date)	
-                        ||(new Date(2041,01,01) <= date &&  new Date(2042,00,21) >= date)	
-                    )
-                    {
-                        return 'Coq';
-                    }
-                    else if((new Date(1934,01,14) <= date &&  new Date(1935,01,02) >= date) 
-                        ||(new Date(1946,01,02) <= date &&  new Date(1947,00,21) >= date)	
-                        ||(new Date(1958,01,18) <= date &&  new Date(1959,01,07) >= date)	
-                        ||(new Date(1970,01,06) <= date &&  new Date(1971,00,26) >= date)	
-                        ||(new Date(1982,00,25) <= date &&  new Date(1983,01,12) >= date)	
-                        ||(new Date(1994,01,10) <= date &&  new Date(1995,00,30) >= date)	
-                        ||(new Date(2006,00,29) <= date &&  new Date(2007,01,17) >= date)	
-                        ||(new Date(2018,01,16) <= date &&  new Date(2019,01,04) >= date)	
-                        ||(new Date(2030,01,03) <= date &&  new Date(2031,00,22) >= date)	
-                        ||(new Date(2042,00,22) <= date &&  new Date(2043,01,09) >= date)	
-                    )
-                    {
-                        return 'Chien';
-                    }
-                    else if((new Date(1935,01,03) <= date &&  new Date(1936,00,23) >= date) 
-                        ||(new Date(1947,00,22) <= date &&  new Date(1948,01,09) >= date)	
-                        ||(new Date(1959,01,08) <= date &&  new Date(1960,00,27) >= date)	
-                        ||(new Date(1971,00,27) <= date &&  new Date(1972,01,14) >= date)	
-                        ||(new Date(1983,01,13) <= date &&  new Date(1984,01,01) >= date)	
-                        ||(new Date(1995,00,31) <= date &&  new Date(1996,01,18) >= date)	
-                        ||(new Date(2007,01,18) <= date &&  new Date(2008,01,03) >= date)	
-                        ||(new Date(2019,01,05) <= date &&  new Date(2020,00,24) >= date)	
-                        ||(new Date(2031,00,23) <= date &&  new Date(2032,01,10) >= date)	
-                        ||(new Date(2043,01,10) <= date &&  new Date(2044,00,29) >= date)	
-                    )
-                    {
-                        return 'Cochon';
-                    }
-                    return null;
-                }
-
-                // Find European sign
-                function findEuropeanZodiac(date){
-                    if(date >= dateBelierFrom.setFullYear(date.getFullYear()) && date <= dateBelierTo.setFullYear(date.getFullYear()))
-                        return 'Bélier';
-                    else if(date >= dateTaureauFrom.setFullYear(date.getFullYear()) && date <= dateTaureauTo.setFullYear(date.getFullYear()))
-                        return 'Taureau';
-                    else if(date >= dateGemeauxFrom.setFullYear(date.getFullYear()) && date <= dateGemeauxTo.setFullYear(date.getFullYear()))
-                        return 'Gémeaux';
-                    else if(date >= dateCancerFrom.setFullYear(date.getFullYear()) && date <= dateCancerTo.setFullYear(date.getFullYear()))
-                        return 'Cancer';
-                    else if(date >= dateLionFrom.setFullYear(date.getFullYear()) && date <= dateLionTo.setFullYear(date.getFullYear()))
-                        return 'Lion';
-                    else if(date >= dateViergeFrom.setFullYear(date.getFullYear()) && date <= dateViergeTo.setFullYear(date.getFullYear()))
-                        return 'Vierge';
-                    else if(date >= dateBalanceFrom.setFullYear(date.getFullYear()) && date <= dateBalanceTo.setFullYear(date.getFullYear()))
-                        return 'Balance';
-                    else if(date >= dateScorpionFrom.setFullYear(date.getFullYear()) && date <= dateScorpionTo.setFullYear(date.getFullYear()))
-                        return 'Scorpion';
-                    else if(date >= dateSagittaireFrom.setFullYear(date.getFullYear()) && date <= dateSagittaireTo.setFullYear(date.getFullYear()))
-                        return 'Sagittaire';
-                    else if(date.getMonth() == 0 && (date >= dateCapricorneFrom.setFullYear(date.getFullYear() - 1) && date <= dateCapricorneTo.setFullYear(date.getFullYear())))
-                        return 'Capricorne';
-                    else if(date.getMonth() == 11 && (date >= dateCapricorneFrom.setFullYear(date.getFullYear()) && date <= dateCapricorneTo.setFullYear(date.getFullYear() + 1)))
-                        return 'Capricorne';
-                    else if(date >= dateVerseauFrom.setFullYear(date.getFullYear()) && date <= dateVerseauTo.setFullYear(date.getFullYear()))
-                        return 'Verseau';
-                    else if(date >= datePoissonFrom.setFullYear(date.getFullYear()) && date <= datePoissonTo.setFullYear(date.getFullYear()))
-                        return 'Poissons';
-                }
-            });
-        </script>
+        <script type="text/javascript" src="JS/init.js"></script>
+        <script type="text/javascript" src="JS/control.js"></script>
     </body>
 </html>
