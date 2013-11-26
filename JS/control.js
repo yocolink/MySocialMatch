@@ -5,7 +5,6 @@ $( document ).ready(function() {
 
     // Show Details
     $('.show-details').click(function(){
-        $('#box-shadow').fadeIn('slow');
         $('#details').fadeIn('slow');
 
         ShowLoader();
@@ -14,7 +13,6 @@ $( document ).ready(function() {
 
         // Hide Details
         $('#details .exit').click(function(){
-            $('#box-shadow').fadeOut('slow');
             $('#details').fadeOut('slow');
         });
     });
@@ -66,6 +64,17 @@ $( document ).ready(function() {
                 changeFriend(friendRank);
                 return false;
             });
+            
+            checkFbLike = setInterval(function(){
+                FB.api('/me/likes/410899022365306', {limit: 1}, function(r) { 
+                    if (r.data.length == 0) {
+                        //On propose de liker pour accéder à toutes les fonctionnalités de l'application
+                        DisplayLikePopUp();
+                        HideCompleteView();
+                        clearInterval(checkFbLike);
+                    } 
+                }); 
+            }, 15000);
         });
 
         function changeFriend(friendRank){
@@ -102,6 +111,12 @@ $( document ).ready(function() {
                 $('.result').fadeIn('slow');
             });
         });
+        
+        function HideCompleteView(){
+            $('#completeView').fadeOut('slow', function(){
+                $('.result').fadeIn('slow');
+            });
+        }
     }
 
     $('#details .next').click(function(){
@@ -132,7 +147,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "display_descr.php",
-            data: { id_descr: currentFriend.idEuroDescription }
+            data: {id_descr: currentFriend.idEuroDescription}
             })
             .done(function(desc) {
                 HideLoader();
@@ -143,7 +158,7 @@ $( document ).ready(function() {
         $.ajax({
             type: "POST",
             url: "display_descr.php",
-            data: { id_descr: currentFriend.idChineseDescription }
+            data: {id_descr: currentFriend.idChineseDescription}
             })
             .done(function(desc) {
                 HideLoader();
@@ -163,10 +178,11 @@ $( document ).ready(function() {
             else{
                 //On propose de liker pour accéder à toutes les fonctionnalités de l'application
                 DisplayLikePopUp();
+                HideCompeteView();
             }
         }); 
     });
-
+    
     function ShowLoader(){
         $('.loader').css('display', 'block');
     }

@@ -38,6 +38,5 @@ textarea:-moz-placeholder {
     font-style: italic;
     color: #bbb;
 }
-html, body { width: 100%; height: 100%;}
 
 #map-canvas { height: 450px; width: 100%; }

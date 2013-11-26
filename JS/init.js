@@ -74,7 +74,7 @@ $( document ).ready(function() {
             $('#details .astro-europe').html('' + user.europeanZodiac+ '<br />' +friendsToMatch[0].europeanZodiac);
 
             for(var i = 0; i < 10; i++){
-                $('.menu').append('<div id="'+ i +'" class="picture-menu"><a href="#" title="'+ friendsToMatch[i].TotalAffinity +'"><img src="'+ friendsToMatch[i].photoUrl +'" alt="'+ friendsToMatch[i].name +'" /></a><p class="hidden-affinity">'+ friendsToMatch[i].TotalAffinity+ '</p></div>');
+                $('.see-all').before('<div id="'+ i +'" class="picture-menu"><a href="#" title="'+ friendsToMatch[i].TotalAffinity +'"><img src="'+ friendsToMatch[i].photoUrl +'" alt="'+ friendsToMatch[i].name +'" /></a><p class="hidden-affinity">'+ friendsToMatch[i].TotalAffinity+ '</p></div>');
             }
             $('.menu').append('<div class="clear"></div>');
 
@@ -88,7 +88,7 @@ $( document ).ready(function() {
                 $('.result').fadeIn('slow');
             });
 
-            $('.picture-menu').on('click', function(){
+            $('div.picture-menu').on('click', function(){
                 var $this = $(this);
                 var friendRank = $this.attr('id');
                 currentFriend = friendsToMatch[friendRank];
