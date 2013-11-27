@@ -177,8 +177,8 @@ $( document ).ready(function() {
     // AstroPower utilise les astres pour affiner le résultat
     function CalculateTotalAffinity(friend){
         var total = ((friend.EuropeanAffinity + friend.ChineseAffinity) / 2) * 2 * 10;
-        if(total == 100)
-            total -= 1;
+        if(total >= 100)
+            total -= 6;
         var astroPower = Math.random() * (5 - (-5)) - 5;
         friend.TotalAffinity = Math.round(total + astroPower) +'%';
     }

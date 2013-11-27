@@ -50,7 +50,7 @@ $( document ).ready(function() {
         for(var i = 0; i < friendsToMatch.length; i++){
             friendListHtml += '<a id="'+ i +'" href="#">'+ friendsToMatch[i].name +': '+friendsToMatch[i].TotalAffinity +'</a>';
         }
-        $('#completeView .friend-list').append(friendListHtml);
+        $('#completeView .friend-list div.friends-links').html(friendListHtml);
         $('.result').fadeOut('slow', function(){
             changeFriend(0);
             $('#completeView').fadeIn('slow');
