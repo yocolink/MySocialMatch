@@ -6,6 +6,8 @@ $( document ).ready(function() {
     // Show Details
     $('.show-details').click(function(){
         $('#details').fadeIn('slow');
+        $('#details .affinity-img p.text-left').html(user.name);
+        $('#details .affinity-img p.text-right').html(currentFriend.name);
 
         ShowLoader();
         GetAndSetDescriptions('#details');
@@ -60,12 +62,13 @@ $( document ).ready(function() {
 
             $('#completeView .friend-list a').click(function(){
                 var $this = $(this);
+                $this.css('color', '#000000');
                 var friendRank = $this.attr('id');
                 changeFriend(friendRank);
                 return false;
             });
             
-            checkFbLike = setInterval(function(){
+            var checkFbLike = setInterval(function(){
                 FB.api('/me/likes/410899022365306', {limit: 1}, function(r) { 
                     if (r.data.length == 0) {
                         //On propose de liker pour accéder à toutes les fonctionnalités de l'application
@@ -188,5 +191,31 @@ $( document ).ready(function() {
     }
     function HideLoader(){
         $('.loader').css('display', 'none');
+    }
+    
+    //Facebook share
+    $('.share-result').click(function(){
+        postFeedDialogToAnUser(currentFriend.id);
+    });
+    
+    function postFeedDialogToAnUser(userId) {
+        FB.ui({ method: 'feed',
+            link: 'http://' + document.domain + '/',
+            picture: 'http://'+ document.domain +'/Images/cupidon.png',
+            to: userId,
+            name: "My Social Match",
+            description: 'Salut !,<center></center><center></center>Je viens de faire ce test d\'affinité.<center></center><center></center>Le résultat est surprenant ! <center></center>Viens le voir !'
+        }, feedCallback);
+
+		
+    }
+    function feedCallback(response){
+        if (response && response.post_id) {
+            $('.post-feed').css('display', 'block');
+            setTimeout(function () {
+                $('.post-feed').css('display', 'none');
+            }, 3000);
+        $.post('');
+        }
     }
 });

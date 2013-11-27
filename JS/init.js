@@ -1,6 +1,6 @@
 $( document ).ready(function() {
     // Facebook Login
-    $('img.connect').click(function(){
+    $('a.connect').click(function(){
         FB.login(function(response) {
             if (response.authResponse) {
                 var access_token = FB.getAuthResponse()['accessToken'];
@@ -19,7 +19,7 @@ $( document ).ready(function() {
         FB.api('/me/', {fields: 'name,id,location,birthday,gender'}, function (response) {
             console.log(response);
             tempDate = new Date(response.birthday);
-            user = {id: response.id, name: response.name, gender: response.gender, photoUrl: 'http://graph.facebook.com/' + response.id + '/picture', birthday: response.birthday, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate) };
+            user = {id: response.id, name: response.name, gender: response.gender, photoUrl: 'http://graph.facebook.com/' + response.id + '/picture', birthday: response.birthday, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate)};
 
             $('.me .name').text(user.name);
             $('.me .picture').attr('src', user.photoUrl);
@@ -28,7 +28,7 @@ $( document ).ready(function() {
             $.ajax({
                 type: "POST",
                 url: "db_add_user.php",
-                data: { id: user.id, birthdate: user.birthday }
+                data: {id: user.id, birthdate: user.birthday}
                 })
                 .done(function(msg) {
                     console.log(msg);
@@ -45,7 +45,7 @@ $( document ).ready(function() {
             for (var i = 0; i < data.length; i++) {
                 if(HasBirthdate(data[i]) && !IsSameGender(data[i])){
                     tempDate = new Date(data[i].birthday);
-                    friendsToMatch.push({id: data[i].id, name: data[i].name, photoUrl: 'http://graph.facebook.com/' + data[i].id + '/picture',birthday: tempDate, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate), idEuroDescription: null, idChineseDescription: null });
+                    friendsToMatch.push({id: data[i].id, name: data[i].name, photoUrl: 'http://graph.facebook.com/' + data[i].id + '/picture',birthday: tempDate, chineseZodiac: findChineseZodiac(tempDate), europeanZodiac: findEuropeanZodiac(tempDate), idEuroDescription: null, idChineseDescription: null});
                 }
                 else{
                     missingFriends.push({id: data[i].id, name: data[i].name, birthday: data[i].birthday});
@@ -175,14 +175,18 @@ $( document ).ready(function() {
     // On effectue la moyenne des deux affinités sur 5 puis on la multiplie par 2 pour avoir un résultat sur 10
     // puis on multiplie le tout par 10 pour obtenir un pourcentage.
     function CalculateTotalAffinity(friend){
-        friend.TotalAffinity = ((friend.EuropeanAffinity + friend.ChineseAffinity) / 2) * 2 * 10 +'%';
+        var total = ((friend.EuropeanAffinity + friend.ChineseAffinity) / 2) * 2 * 10;
+        if(total == 100)
+            total -= 1;
+        var astroPower = Math.random() * (5 - (-5)) - 5;
+        friend.TotalAffinity = Math.round(total + astroPower) +'%';
     }
 
     // Classement des résultats total d'affinité par ordre décroissant.
     function compareByAffinity(a,b) {
-        if ((a.EuropeanAffinity + a.ChineseAffinity) > (b.EuropeanAffinity + b.ChineseAffinity))
+        if ((a.TotalAffinity) > (b.TotalAffinity))
             return -1;
-        if ((a.EuropeanAffinity + a.ChineseAffinity) < (b.EuropeanAffinity + b.ChineseAffinity))
+        if ((a.TotalAffinity) < (b.TotalAffinity))
             return 1;
         return 0;
     }

@@ -74,21 +74,12 @@
             
         </div>
 	<div id="global">
-	    <div id="main-title">
-                <h1>My Social Match</h1>
-	    </div>
-
 	    <div id="content">
                 <!-- Introduction --> 
                 <div class="intro">
-                    <h2>Explication</h2>
-                    <p>Bonjour dans le truc magique de révélation de l'affinité affinitative.<br />
-                    Cliquez sur le bouton et découvrez vos réelles affinités astrales avec vos amis.<br />
-                    Notre méthode de calcule se base sur les signes chinois et européens. C'est magique
-                    ça marche, c'est trop bien, clique, like et parles-en à tes amis car ils feront la même
-                    chose que toi et ça dépassera facebook dans facebook tellement c'est bien et ça va 
-                    sortir de facebook comme un bébé ultime et blablablabla boom...</p>
-                    <img class="connect" src="Images/button/connect.gif" alt="Button connect" />
+                    <img src="Images/title.png" alt="My Social Match" />
+                    <br />
+                    <a class="connect" href="#">Démarrer</a>
                 </div>
                 <!-- Ecran principal des résultats -->
                 <div class="result">
@@ -97,7 +88,9 @@
                     </div>
                     <div class="me">
                         <p class="name"></p>
-                        <img class="picture" src="" alt="facebook picture" />
+                        <div class="border-picture">
+                            <img class="picture" src="" alt="facebook picture" />
+                        </div>
                         <p class="astro"></p>
                     </div>
                     <div class="affinity">
@@ -105,7 +98,9 @@
                     </div>
                     <div class="other">
                         <p class="name"></p>
-                        <img class="picture" src="" alt="facebook picture" />
+                        <div class="border-picture">
+                            <img class="picture" src="" alt="facebook picture" />
+                        </div>
                         <p class="astro"></p>
                     </div>
                     <div class="clear"></div>
@@ -115,6 +110,7 @@
                 <div id="completeView">
                     <div class="exit"></div>
                     <div class="friend-list">
+                        <h2>Recherche personnalisée</h2>
                         <input id="fb-friends-search" type="text" placeholder="Tapez le nom d'un ami"/><br />
                     </div>
                     <div class="details">
@@ -128,10 +124,14 @@
                                 <img class="other" src="" alt="" width="80" height="80"/>
                             </div>
                             <div class="content">
-                                <p class="affinity"></p>
+                                <div class="affinity-img">
+                                    <p class="affinity"></p>
+                                </div>
                                 <div class="texts">
                                     <p class="text-europe"></p>
                                     <p class="text-chine"></p>
+                                    <a class="share-result" href="#"><img class="share-result" src="Images/button/share.gif" /></a>
+                                    <p class="post-feed">Message envoyé avec succès :)</p>
                                 </div>
                                 <img class="loader" src="Images/loader.gif" alt="Loader" />
                             </div>
@@ -145,18 +145,28 @@
                     <div class="exit"></div>
                     <div class="infos">
                         <div class="head">
-                            <img class="me" src="" alt="" width="80" height="80"/>
+                            <div class="border-picture">
+                                <img class="me" src="" alt="" width="80" height="80"/>
+                            </div>
                             <div class="astro-sign">
                                 <p class="astro-chine"></p>
                                 <p class="astro-europe"></p>
                             </div>
-                            <img class="other" src="" alt="" width="80" height="80"/>
+                            <div class="border-picture">
+                                <img class="other" src="" alt="" width="80" height="80"/>
+                            </div>
                         </div>
                         <div class="content">
-                            <p class="affinity"></p>
+                            <div class="affinity-img">
+                                <p class="text-left">tex</p>
+                                <p class="affinity"></p>
+                                <p class="text-right">ted</p>
+                            </div>
                             <div class="texts">
                                 <p class="text-europe"></p>
                                 <p class="text-chine"></p>
+                                <a class="share-result" href="#"><img src="Images/button/share.gif" /></a>
+                                <p class="post-feed">Message envoyé avec succès :)</p>
                             </div>
                             <img class="loader" src="Images/loader.gif" alt="Loader" />
                         </div>
@@ -166,7 +176,16 @@
                 <!-- Popup Facebook like -->
                 <div id="FanPagePromo">
                     <div class="exit"></div>
-                    <div class="fb-like" data-href="https://www.facebook.com/pages/My-Social-Match/410899022365306" data-layout="box_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                    <img class="img-astro-eu" src="Images/AstroEu.png" alt="Euro zodiac" />
+                    <p>Si les informations affichées ne vous suffisent pas et que vous souhaitez obtenir PLUS DE RESULTATS...<br /><br />
+                    Ou si vous voulez tout simplement accéder à notre fonction de RECHERCHE PERSONNALISEE...<br /><br />
+                    Cliquez dès maintenant sur le bouton ci-dessous :</p>
+                    <div class="fb-like" data-href="https://www.facebook.com/pages/My-Social-Match/410899022365306" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                    <img class="img-astro-ch" src="Images/AstroCh.png" alt="Chinese zodiac" />
+                </div>
+                <!-- Share Button -->
+                <div id="ShareButton">
+                    <div class="fb-share-button" data-href="http://meme42.com" data-type="button_count"></div>
                 </div>
 	    </div>
 
