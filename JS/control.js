@@ -8,6 +8,11 @@ $( document ).ready(function() {
         $('#details').fadeIn('slow');
         $('#details .affinity-img p.text-left').html(user.name);
         $('#details .affinity-img p.text-right').html(currentFriend.name);
+        $('#details .ch-zodiac-user').attr('src', 'Images/chineseSign/'+ user.chineseZodiac +'.png');
+        $('#details .ch-zodiac-other').attr('src', 'Images/chineseSign/'+ currentFriend.chineseZodiac +'.png');
+        $('#details .eu-zodiac-user').attr('src', 'Images/euroSign/'+ user.europeanZodiac +'.png');
+        $('#details .eu-zodiac-other').attr('src', 'Images/euroSign/'+ currentFriend.europeanZodiac +'.png');
+        
 
         ShowLoader();
         GetAndSetDescriptions('#details');
@@ -92,6 +97,11 @@ $( document ).ready(function() {
                 $('#completeView .details img.other').attr('src', 'http://graph.facebook.com/' + friendsToMatch[friendRank].id + '/picture');
                 $('#completeView .details .astro-chine').html('' + user.chineseZodiac+ '<br />' +friendsToMatch[friendRank].chineseZodiac);
                 $('#completeView .details .astro-europe').html('' + user.europeanZodiac+ '<br />' +friendsToMatch[friendRank].europeanZodiac);
+                $('#completeView .ch-zodiac-user').attr('src', 'Images/chineseSign/'+ user.chineseZodiac +'.png');
+                $('#completeView .ch-zodiac-other').attr('src', 'Images/chineseSign/'+ friendsToMatch[friendRank].chineseZodiac +'.png');
+                $('#completeView .eu-zodiac-user').attr('src', 'Images/euroSign/'+ user.europeanZodiac +'.png');
+                $('#completeView .eu-zodiac-other').attr('src', 'Images/euroSign/'+ friendsToMatch[friendRank].europeanZodiac +'.png');
+                
                 $('#completeView .other').fadeIn('slow');
             })
             $('#completeView .infos p.affinity').fadeOut('slow', function(){
@@ -135,6 +145,12 @@ $( document ).ready(function() {
             $(windowDiv +' .astro-europe').fadeOut('slow', function(){
                 $(windowDiv +' .astro-chine').fadeIn('slow');
             });
+            $(windowDiv +' .eu-zodiac-user').fadeOut('slow', function(){
+                $(windowDiv +' .ch-zodiac-user').fadeIn('slow');
+            });
+            $(windowDiv +' .eu-zodiac-other').fadeOut('slow', function(){
+                $(windowDiv +' .ch-zodiac-other').fadeIn('slow');
+            });
         }
         else{
             $(windowDiv +' .text-chine').fadeOut('slow', function(){
@@ -142,6 +158,12 @@ $( document ).ready(function() {
             });
             $(windowDiv +' .astro-chine').fadeOut('slow', function(){
                 $(windowDiv +' .astro-europe').fadeIn('slow');
+            });
+            $(windowDiv +' .ch-zodiac-user').fadeOut('slow', function(){
+                $(windowDiv +' .eu-zodiac-user').fadeIn('slow');
+            });
+            $(windowDiv +' .ch-zodiac-other').fadeOut('slow', function(){
+                $(windowDiv +' .eu-zodiac-other').fadeIn('slow');
             });
         }
     }

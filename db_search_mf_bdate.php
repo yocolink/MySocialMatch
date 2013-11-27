@@ -3,7 +3,7 @@
 ?>
 	<?php
 		// Exemple de tableau avec IDs
-		$missingFriendsId = array('1234567890','7894561230','1472583690','3692581470');
+		$missingFriendsId = array('1234567890');
 		
 		$nbElements = count($missingFriendsId);
 		$requete = "SELECT id_user, user_bday FROM users WHERE ";

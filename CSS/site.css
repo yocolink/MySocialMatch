@@ -350,3 +350,8 @@ body{
     display: block;
     margin: 20px auto 0 auto;
 }
+
+body #details .infos .ch-zodiac-user, body #details .infos .ch-zodiac-other,
+#completeView .details .infos .head .ch-zodiac-user, #completeView .details .infos .head .ch-zodiac-other{
+    display: none;
+}

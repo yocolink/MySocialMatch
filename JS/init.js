@@ -174,6 +174,7 @@ $( document ).ready(function() {
     // Calcule de la note finale d'affinité représenté sous forme de pourcentage
     // On effectue la moyenne des deux affinités sur 5 puis on la multiplie par 2 pour avoir un résultat sur 10
     // puis on multiplie le tout par 10 pour obtenir un pourcentage.
+    // AstroPower utilise les astres pour affiner le résultat
     function CalculateTotalAffinity(friend){
         var total = ((friend.EuropeanAffinity + friend.ChineseAffinity) / 2) * 2 * 10;
         if(total == 100)
